@@ -1,8 +1,7 @@
 function [BifCentrs2,TermCentrs2] = RemoveBadMinutaes(BifCentrs,TermCentrs, D)
 
 %1. Remove bifurcations and terminations at a distance smaller than D
-dist = DistEuclidean(BifCentrs, TermCentrs);
-removalMinutaes = dist-D;
+dist = DistEuclidean(BifCentrs, Term)
 
 % sb=size(BifCentrs);
 % st=size(TermCentrs);

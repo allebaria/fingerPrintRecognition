@@ -23,5 +23,4 @@ Iroi=imerode(Iclosed,strel('disk',10));
 figure(5)
 imshow(Iroi)
 
-%TODO: apply the roi region to the original image
 
