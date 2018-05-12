@@ -1,5 +1,1 @@
-clear all
-%Prepare image
-Preprocessing
-%GET
-GetMinutaes
+build_db(10,8)
