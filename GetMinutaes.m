@@ -14,13 +14,29 @@ MinutaeMatrix = nlfilter(Ithin,[3 3],@minutie);
 %array given by the 'regionprops' function and plot the result into the
 %fingerprint image
 Terminations = (MinutaeMatrix==1);
+for i = 1 : simage(1)
+    for j = 1 : simage(2)
+        if Iroi(i,j)==0
+            Terminations(i,j)=0;
+        end
+    end
+end
 TermCentr=regionprops(Terminations,'Centroid');
 TermCentr=cat(1,TermCentr(:).Centroid);
+figure(5)
+imshow(~Ithin)
 hold on
 plot(TermCentr(:,1),TermCentr(:,2),'ro')
 
 %Now we apply the same algorithm to find and plot the bifurcations.
 Bifurcations = (MinutaeMatrix==3);
+for i = 1 : simage(1)
+    for j = 1 : simage(2)
+        if Iroi(i,j)==0
+            Bifurcations(i,j)=0;
+        end
+    end
+end
 BifCentr=regionprops(Bifurcations,'Centroid');
 BifCentr=cat(1,BifCentr(:).Centroid);
 plot(BifCentr(:,1),BifCentr(:,2),'bo')
