@@ -4,6 +4,7 @@
 %2: Part of the crest
 %3: Bifurcation
 
+simage = size(Ithin);
 MinutaeMatrix = nlfilter(Ithin,[3 3],@minutie);
 
 %Then we find only the bifurcations to plot them above the image of the
