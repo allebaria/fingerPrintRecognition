@@ -50,7 +50,6 @@ function [ ret ] = ext_finger( img, display_flag )
         end	
     end
     [ binim, mask, cimg, cimg2, orient_img, orient_img_m ] = f_enhance(img);
-    
 % Making Mask -------------------------------------------------------------
     if display_flag==1; fprintf('done.\n >>> making mask '); end
     mask_t=mask;
