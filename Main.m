@@ -1,5 +1,5 @@
 clear all
 %Prepare image
 Preprocessing
-%GEt
+%GET
 GetMinutaes
