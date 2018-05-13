@@ -7,6 +7,17 @@
 simage = size(Ithin);
 MinutaeMatrix = nlfilter(Ithin,[3 3],@minutie);
 
+%Then we get the ROI of the image to get remove periferical minutaes
+
+Iclosed = imclose(Ithin,strel('square',10));
+Iclosed = imfill(Iclosed,'holes');
+Iclosed=bwareaopen(Iclosed,5);
+Iclosed([1 end],:)=0;
+Iclosed(:,[1 end])=0;
+Iroi=imerode(Iclosed,strel('disk',10));
+figure(8)
+imshow(Iroi)
+
 %Then we find only the bifurcations to plot them above the image of the
 %fingerprint
 %To do it, we get only the pixels tagged with a '1' after the first
@@ -49,4 +60,14 @@ hold off
 %1. The distance betweenn a bifurcation and a termination is smaller than X
 %2. The distance betweenn two bifurcations is smaller than X
 %3. The distance betweenn two terminations is smaller than X
-%First of all we have to sort the Bifurcations and Terminations Cen
+[BifCentr, TermCentr] = RemoveBadMinutaes(BifCentr, TermCentr, 6);
+
+%Show result without fake minutaes
+hold off
+figure(10)
+imshow(~Ithin)
+hold on
+plot(TermCentr(:,1),TermCentr(:,2),'ro')
+plot(BifCentr(:,1),BifCentr(:,2),'go')
+hold off
+
