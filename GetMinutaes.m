@@ -1,3 +1,4 @@
+function [Bifurcations,Terminations,BifCentr,TermCentr] = getMinutaes(Ithin)
 %First of all we need to get a matrix in which every pixel of a ridge will
 %be studied in order to know if is a minutae.
 %1: Termination
@@ -70,4 +71,7 @@ hold on
 plot(TermCentr(:,1),TermCentr(:,2),'ro')
 plot(BifCentr(:,1),BifCentr(:,2),'go')
 hold off
+
+
+end
 
