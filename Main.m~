@@ -1,12 +1,19 @@
 clear all clc
-
-%Preprocessing
-im=imread('./DB1_B/102_1.tif');
+%Get image
+im=imread('./DB1_B/105_3.tif');
 figure(1)
 imshow(im)
 title('Original Image')
-Ithin = ext_finger(im,1);
+
+%Preprocessing
+Ithin, MinutaeMatrixComplex = ext_finger(im,1);
 figure(2)
-imshow(ret)
+imshow(Ithin)
+
 
 %Processing
+GetMinutaes
+im2=imread('./DB1_B/105_7.tif');
+Ithin2, MinutaeMatrixComplex2 = ext_finger(im,1);
+
+

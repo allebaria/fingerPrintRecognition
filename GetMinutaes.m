@@ -15,8 +15,6 @@ Iclosed=bwareaopen(Iclosed,5);
 Iclosed([1 end],:)=0;
 Iclosed(:,[1 end])=0;
 Iroi=imerode(Iclosed,strel('disk',10));
-figure(8)
-imshow(Iroi)
 
 %Then we find only the bifurcations to plot them above the image of the
 %fingerprint
@@ -65,7 +63,7 @@ hold off
 
 %Show result without fake minutaes
 hold off
-figure(10)
+figure(6)
 imshow(~Ithin)
 title('Image without fake minutiaes')
 hold on

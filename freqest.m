@@ -91,7 +91,7 @@ function freqim =  freqest(im, orientim, windsze, minWaveLength, maxWaveLength)
     if debug
 	%show(im,1)
 	%show(rotim,2);
-	figure(3),    plot(proj), hold on
+	%figure(3),    plot(proj), hold on
 	meanproj = mean(proj)
 	if length(maxind) < 2
 	    fprintf('No peaks found\n');
