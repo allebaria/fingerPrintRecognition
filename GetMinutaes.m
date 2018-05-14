@@ -34,11 +34,6 @@ for i = 1 : simage(1)
 end
 TermCentr=regionprops(Terminations,'Centroid');
 TermCentr=cat(1,TermCentr(:).Centroid);
-figure(5)
-imshow(~Ithin)
-title('Image with fake minutiaes')
-hold on
-plot(TermCentr(:,1),TermCentr(:,2),'ro')
 
 %Now we apply the same algorithm to find and plot the bifurcations.
 Bifurcations = (MinutaeMatrix==3);
@@ -51,9 +46,6 @@ for i = 1 : simage(1)
 end
 BifCentr=regionprops(Bifurcations,'Centroid');
 BifCentr=cat(1,BifCentr(:).Centroid);
-plot(BifCentr(:,1),BifCentr(:,2),'bo')
-hold off
-
 %By this moment, we have all the bifurcations and temrinations, but not all
 %of them are going to be studied. The reason is to avoid minutaes that were
 %recognized by mistake. The minutaes to be removed have to accomplish one of the three conditions below:
@@ -61,16 +53,6 @@ hold off
 %2. The distance betweenn two bifurcations is smaller than X
 %3. The distance betweenn two terminations is smaller than X
 [BifCentr, TermCentr] = RemoveBadMinutaes(BifCentr, TermCentr, 6);
-
-%Show result without fake minutaes
-hold off
-figure(6)
-imshow(~Ithin)
-title('Image without fake minutiaes')
-hold on
-plot(TermCentr(:,1),TermCentr(:,2),'ro')
-plot(BifCentr(:,1),BifCentr(:,2),'go')
-hold off
 
 
 end
