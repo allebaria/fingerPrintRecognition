@@ -15,7 +15,7 @@ Iclosed = imfill(Iclosed,'holes');
 Iclosed=bwareaopen(Iclosed,5);
 Iclosed([1 end],:)=0;
 Iclosed(:,[1 end])=0;
-Iroi=imerode(Iclosed,strel('disk',10));
+Iroi=imerode(Iclosed,strel('disk',5));
 
 %Then we find only the bifurcations to plot them above the image of the
 %fingerprint
