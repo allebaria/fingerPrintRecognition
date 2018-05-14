@@ -14,7 +14,9 @@ title('Thinned Image 1')
 
 
 %Processing
-%Get Minutiaes from original image
+%Translating and Getting Minutiaes from original image
+center=findCenter(MinutaeMatrixComplex);
+Ithin=imageTranslation(center,Ithin);
 [Bifurcations,Terminations,BifCentr,TermCentr]=getMinutaes(Ithin);
 
 
@@ -27,9 +29,8 @@ title('Thinned Image 2')
 
 
 %Translating second image to match with the original one
-center=findCenter(MinutaeMatrixComplex);
 center2=findCenter(MinutaeMatrixComplex2);
-Ithin2=imageTranslation(center,center2,Ithin2);
+Ithin2=imageTranslation(center2,Ithin2);
 figure(4)
 imshow(Ithin2)
 title('Thinned Image 2 Translated')
@@ -37,6 +38,5 @@ title('Thinned Image 2 Translated')
 
 %Get Minutiaes from second image
 [Bifurcations2,Terminations2,BifCentr2,TermCentr2]=getMinutaes(Ithin2);
-
 
 
