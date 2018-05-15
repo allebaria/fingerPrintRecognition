@@ -1,4 +1,3 @@
-%clear all clc
 %Get image
 %im=imread('./DB1_B/101_1.tif');
 
@@ -14,8 +13,42 @@
 % [Bifurcations,Terminations,BifCentr,TermCentr]=getMinutaes(Ithin);
 % minMat_templ=[BifCentr;TermCentr];
 
-%Getting and Preprocessing second image
-im2=imread('./DB1_B/101_8.tif');
+%TODO: Posar text de color verd quan match correcte i vermell quan no
+%TODO: Pintar minucies a la imatge processada
+%TODO: Vigilar amb el none
+f = figure('Name', 'Programa de matching per empremtes dactilars','Visible','off', 'NumberTitle', 'off');
+popup = uicontrol('Style', 'popup',...
+           'String', {'None','Albert_1','Albert_2','Albert_3','Albert_4', 'Amadeu_1','Amadeu_2','Amadeu_3','Amadeu_4','Anna_1','Anna_2','Anna_3', 'Elena_1','Elena_2','Elena_3','Elena_4','Elena_5', 'Guille_1','Guille_2','Guille_3','Guille_4','Guille_5','Guille_6', 'Marta_1', 'Marta_2', 'Teresa_1', 'Teresa_2','Teresa_3','Teresa_4', 'Xavier_1', 'Xavier_2' 'Xavier_3' 'Xavier_4' 'Xavier_5'},...
+           'Position', [20 340 100 50],...
+           'Tag','popup_captured',...
+           'UserData',struct('Image',''),...
+           'Callback', @setList);
+popup2 = uicontrol('Style', 'popup',...
+           'String', {'None','Albert_1','Albert_2','Albert_3','Albert_4', 'Amadeu_1','Amadeu_2','Amadeu_3','Amadeu_4','Anna_1','Anna_2','Anna_3', 'Elena_1','Elena_2','Elena_3','Elena_4','Elena_5', 'Guille_1','Guille_2','Guille_3','Guille_4','Guille_5','Guille_6', 'Marta_1', 'Marta_2', 'Teresa_1', 'Teresa_2','Teresa_3','Teresa_4', 'Xavier_1', 'Xavier_2' 'Xavier_3' 'Xavier_4' 'Xavier_5'},...
+           'Position', [440 340 100 50],...
+           'Tag','popup_database',...
+           'UserData', struct('Image',''),...
+           'Callback', @setList2);
+runButton = uicontrol('Style', 'pushbutton','String','Run',...
+           'Position', [230 360 100 50],...
+           'Callback', @startMatching);
+       
+txtInformation = uicontrol('Style','text',...
+     'Position',[220 45 160 40],...
+     'Tag','text_for_information',...
+     'String','Selecciona dues imatges i pitja Run');
+       
+f.Visible = 'on';
+
+function startMatching(source, event)
+popup_1 = findobj('Tag','popup_captured');
+popup_2 = findobj('Tag','popup_database');
+txt_info = findobj('Tag', 'text_for_information');
+pathCapturedImage = sprintf('./DB1_B/%s.tif', popup_1.UserData.Image);
+pathDataBaseImage = sprintf('./DB1_B/%s.tif', popup_2.UserData.Image);
+txt_info.String = 'Processant algorisme...'
+%Getting and Preprocessing captured image
+im2=imread(pathCapturedImage);
 [Ithin2,MinutaeMatrixComplex2] = ext_finger(im2,1);
 
 
@@ -29,9 +62,49 @@ Ithin2=imageTranslation(center2,Ithin2);
 minMat_curr=[BifCentr2;TermCentr2];
 
 %Matching
+minMat_templ = TemplateImageProcessing(pathDataBaseImage);
 n_min_templ=size(minMat_templ(:,1));
 n_min_curr=size(minMat_curr(:,1));
 tic
 c=matching(minMat_templ,minMat_curr,0.8*min(n_min_templ,n_min_curr));
 toc
 c
+
+subplot(1,2,1), subimage(Ithin2)
+title('Imatge capturada processada amb minutes')
+
+if(c)
+    txt_info.String = 'Matching Correcte!!!';
+else
+    txt_info.String = 'Matching Incorrecte...'
+
+end
+
+end
+
+function setList(source,event)
+    val = source.Value;
+    images = source.String;
+    newImage = images{val};
+    source.UserData.Image = newImage;
+    if(val ~= 1)
+        im=imread(sprintf('./DB1_B/%s.tif', newImage));
+        subplot(1,2,1), subimage(im)
+        title('Imatge acabada de capturar')
+    end 
+    
+end
+
+function setList2(source,event)
+    val = source.Value;
+    images = source.String;
+    newImage = images{val};
+    source.UserData.Image = newImage;
+    if(val ~= 1)
+        im=imread(sprintf('./DB1_B/%s.tif', newImage));
+        subplot(1,2,2), subimage(im) 
+        title('Imatge de la base de dades')
+    end 
+    
+end
+

@@ -1,6 +1,6 @@
-clear all clc
+function [minMat_templ] = TemplateImageProcessing(imagePath)
 %Get image
-im=imread('./DB1_B/106_2.tif');
+im=imread(imagePath);
 
 
 %Preprocessing
@@ -13,3 +13,4 @@ center=findCenter(MinutaeMatrixComplex);
 Ithin=imageTranslation(center,Ithin);
 [Bifurcations,Terminations,BifCentr,TermCentr]=getMinutaes(Ithin);
 minMat_templ=[BifCentr;TermCentr];
+end
