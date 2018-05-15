@@ -11,6 +11,6 @@ im=imread(imagePath);
 %Translating and Getting Minutiaes from original image
 center=findCenter(MinutaeMatrixComplex);
 Ithin=imageTranslation(center,Ithin);
-[Bifurcations,Terminations,BifCentr,TermCentr]=getMinutaes(Ithin);
+[Bifurcations,Terminations,BifCentr,TermCentr]=GetMinutaes(Ithin);
 minMat_templ=[BifCentr;TermCentr];
 end

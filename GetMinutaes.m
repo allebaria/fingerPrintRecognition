@@ -1,4 +1,4 @@
-function [Bifurcations,Terminations,BifCentr,TermCentr] = getMinutaes(Ithin)
+function [Bifurcations,Terminations,BifCentr,TermCentr] = GetMinutaes(Ithin)
 %First of all we need to get a matrix in which every pixel of a ridge will
 %be studied in order to know if is a minutae.
 %1: Termination

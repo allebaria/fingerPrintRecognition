@@ -1,4 +1,4 @@
-tic
+
 f = figure('Name', 'Programa de matching per empremtes dactilars','Visible','off', 'NumberTitle', 'off');
 popup = uicontrol('Style', 'popup',...
            'String', {'None','Albert_1','Albert_2','Amadeu_1','Amadeu_2','Elena_1','Elena_2','Elena_3', 'Guille_1','Guille_2','Guille_3','Guille_4','Teresa_1', 'Teresa_2','Teresa_4'},...
@@ -22,7 +22,6 @@ txtInformation = uicontrol('Style','text',...
      'String','Selecciona dues imatges i pitja el boto per comparar les imatges');
        
 f.Visible = 'on';
-toc
 
 function startMatching(source, event)
 popup_1 = findobj('Tag','popup_captured');
@@ -55,7 +54,7 @@ else
 
 
     %Get Minutiaes from second image
-    [Bifurcations2,Terminations2,BifCentr2,TermCentr2]=getMinutaes(Ithin2);
+    [Bifurcations2,Terminations2,BifCentr2,TermCentr2]=GetMinutaes(Ithin2);
     minMat_curr=[BifCentr2;TermCentr2];
 
     %Matching
