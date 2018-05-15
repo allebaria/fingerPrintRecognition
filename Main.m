@@ -17,7 +17,9 @@ runButton = uicontrol('Style', 'pushbutton','String','Comparar les empremtes!',.
            'Callback', @startMatching);
        
 txtInformation = uicontrol('Style','text',...
-     'Position',[220 45 160 40],...
+     'Position',[220 20 160 75],...
+     'FontSize',12.5,...
+     'FontWeight','Bold',...
      'Tag','text_for_information',...
      'String','Selecciona dues imatges i pitja el boto per comparar les imatges');
        
@@ -79,10 +81,10 @@ else
 
     if(c)
         txt_info.String = 'Matching Correcte!!!';
-        txt_info.ForegroundColor = 'green';
+        txt_info.ForegroundColor = [0.298,0.5686,0.2549];
     else
         txt_info.String = 'Matching Incorrecte...';
-        txt_info.ForegroundColor = 'red';
+        txt_info.ForegroundColor = [0.6078,0.06667,0.1176];
 
 
     end
