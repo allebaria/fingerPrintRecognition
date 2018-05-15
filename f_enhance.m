@@ -1,20 +1,4 @@
-% ENHANCING FINGERPRINT IMAGE
-%
-% Usage:  [ binim, mask, cimg, cimg2, orient_img, orient_img_m ] =
-%          ... f_enhance( img );
-%
-% Argument:   img - FingerPrint Image
-%               
-% Returns:    binim   - binary image 
-%             mask    - binary mask
-%             cimg1,2 - coherence image
-%             oimg1,2 - The orientation image in radians.
 
-% Vahid. K. Alilou
-% Department of Computer Engineering
-% The University of Semnan
-%
-% July 2013
 
 function [ binim, mask, cimg1, cimg2, oimg1, oimg2 ] = f_enhance( img )
     enhimg =  fft_enhance_cubs(img,6);             % Enhance with Blocks 6x6

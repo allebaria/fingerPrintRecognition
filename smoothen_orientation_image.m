@@ -1,17 +1,4 @@
-%------------------------------------------------------------------------
-%smoothen_orientation_image
-%smoothens the orientation image through vectorial gaussian filtering
-%Usage:
-%new_oimg = smoothen_orientation_image(oimg)
-%oimg     - orientation image
-%new_oimg - filtered orientation image
-%Contact:
-%   ssc5@eng.buffalo.edu
-%   www.eng.buffalo.edu/~ssc5
-%Reference:
-%M. Kaas and A. Witkin, "Analyzing oriented patterns", Computer Vision
-%Graphics Image Processing 37(4), pp 362--385, 1987
-%------------------------------------------------------------------------
+
 function noimg = smoothen_orientation_image(oimg)
     %---------------------------
     %smoothen the image

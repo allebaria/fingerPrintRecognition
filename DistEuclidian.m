@@ -1,7 +1,5 @@
 function D=DistEuclidian(dataset1,dataset2)
 
-
-
 switch nargin
     case 1
         [m1,n1]=size(dataset1);

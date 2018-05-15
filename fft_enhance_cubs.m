@@ -1,23 +1,4 @@
-%--------------------------------------------------------------------------
-%fft_enhance_cubs
-%enhances the fingerprint image
-%syntax:
-%[oimg,fimg,bwimg,eimg,enhimg] =  fft_enhance_cubs(img, BLKSZ)
-%oimg -  [OUT] block orientation image(can be viewed using
-%        view_orientation_image.m)
-%fimg  - [OUT] block frequency image(indicates ridge spacing)
-%bwimg - [OUT] shows angular bandwidth image(filter bandwidth adapts near the
-%        singular points)
-%eimg  - [OUT] energy image. Indicates the 'ridgeness' of a block (can be 
-%        used for fingerprint segmentation)
-%enhimg- [OUT] enhanced image
-%img   - [IN]  input fingerprint image (HAS to be of DOUBLE type)
-%Contact:
-%   ssc5@eng.buffalo.edu
-%   www.eng.buffalo.edu/~ssc5
-%Reference:
-%S. Chikkerur,C. Wu and Govindaraju, "A Systematic approach for 
-%feature extraction in fingerprint images",ICBA 2004
+
 %--------------------------------------------------------------------------
 function [enhimg, cimg, oimg,fimg,bwimg,eimg] =  fft_enhance_cubs(img, BLKSZ)
     global NFFT;

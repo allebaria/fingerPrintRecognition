@@ -1,20 +1,4 @@
-%------------------------------------------------------------------------
-%smoothen_frequency_image
-%smoothens the frequency image through a process of diffusion
-%Usage:
-%new_oimg = smoothen_frequency_image(fimg,RLOW,RHIGH,diff_cycles)
-%fimg       - frequency image image
-%nimg       - filtered frequency image
-%RLOW       - lowest allowed ridge separation
-%RHIGH      - highest allowed ridge separation
-%diff_cyles - number of diffusion cycles
-%Contact:
-%   ssc5@eng.buffalo.edu
-%   www.eng.buffalo.edu/~ssc5
-%Reference:
-%S. Chikkerur, C.Wu and V. Govindaraju, "Systematic approach for feature
-%extraction in Fingerprint Images", ICBA 2004
-%------------------------------------------------------------------------
+
 function nfimg = smoothen_frequency_image(fimg,RLOW,RHIGH,diff_cycles)
     valid_nbrs  =   3; %uses only pixels with more then valid_nbrs for diffusion
     [ht,wt]     =   size(fimg);

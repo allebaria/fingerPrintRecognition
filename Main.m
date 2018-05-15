@@ -1,27 +1,13 @@
-%Get image
-%im=imread('./DB1_B/101_1.tif');
-
-
-% %Preprocessing
-% [Ithin, MinutaeMatrixComplex] = ext_finger(im,1);
-% 
-% 
-% %Processing
-% %Translating and Getting Minutiaes from original image
-% center=findCenter(MinutaeMatrixComplex);
-% Ithin=imageTranslation(center,Ithin);
-% [Bifurcations,Terminations,BifCentr,TermCentr]=getMinutaes(Ithin);
-% minMat_templ=[BifCentr;TermCentr];
-
+tic
 f = figure('Name', 'Programa de matching per empremtes dactilars','Visible','off', 'NumberTitle', 'off');
 popup = uicontrol('Style', 'popup',...
-           'String', {'None','Albert_1','Albert_2','Albert_3','Albert_4', 'Amadeu_1','Amadeu_2','Amadeu_3','Amadeu_4','Anna_1','Anna_2','Anna_3', 'Elena_1','Elena_2','Elena_3','Elena_4','Elena_5', 'Guille_1','Guille_2','Guille_3','Guille_4','Guille_5','Guille_6', 'Marta_1', 'Marta_2', 'Teresa_1', 'Teresa_2','Teresa_3','Teresa_4', 'Xavier_1', 'Xavier_2' 'Xavier_3' 'Xavier_4' 'Xavier_5'},...
+           'String', {'None','Albert_1','Albert_2','Amadeu_1','Amadeu_2','Elena_1','Elena_2','Elena_3', 'Guille_1','Guille_2','Guille_3','Guille_4','Teresa_1', 'Teresa_2','Teresa_4'},...
            'Position', [20 340 100 50],...
            'Tag','popup_captured',...
            'UserData',struct('Image',''),...
            'Callback', @setList);
 popup2 = uicontrol('Style', 'popup',...
-           'String', {'None','Albert_1','Albert_2','Albert_3','Albert_4', 'Amadeu_1','Amadeu_2','Amadeu_3','Amadeu_4','Anna_1','Anna_2','Anna_3', 'Elena_1','Elena_2','Elena_3','Elena_4','Elena_5', 'Guille_1','Guille_2','Guille_3','Guille_4','Guille_5','Guille_6', 'Marta_1', 'Marta_2', 'Teresa_1', 'Teresa_2','Teresa_3','Teresa_4', 'Xavier_1', 'Xavier_2' 'Xavier_3' 'Xavier_4' 'Xavier_5'},...
+           'String', {'None','Albert_1','Albert_2','Amadeu_1','Amadeu_2','Elena_1','Elena_2','Elena_3', 'Guille_1','Guille_2','Guille_3','Guille_4','Teresa_1', 'Teresa_2','Teresa_4'},...
            'Position', [440 340 100 50],...
            'Tag','popup_database',...
            'UserData', struct('Image',''),...
@@ -33,9 +19,10 @@ runButton = uicontrol('Style', 'pushbutton','String','Comparar les empremtes!',.
 txtInformation = uicontrol('Style','text',...
      'Position',[220 45 160 40],...
      'Tag','text_for_information',...
-     'String','Selecciona dues imatges i pitja el botó per comparar les imatges');
+     'String','Selecciona dues imatges i pitja el boto per comparar les imatges');
        
 f.Visible = 'on';
+toc
 
 function startMatching(source, event)
 popup_1 = findobj('Tag','popup_captured');
@@ -43,14 +30,22 @@ popup_2 = findobj('Tag','popup_database');
 pathCapturedImage = sprintf('./DB1_B/%s.tif', popup_1.UserData.Image);
 pathDataBaseImage = sprintf('./DB1_B/%s.tif', popup_2.UserData.Image);
 if(strcmp(popup_1.UserData.Image,'')|| strcmp(popup_2.UserData.Image,'') || strcmp(popup_1.UserData.Image,'None')|| strcmp(popup_2.UserData.Image,'None'))
-    f = msgbox('Per tal de poder fer el matching no poden haver cap paràmetre a "None"','Mala selecció');
+    f = msgbox('Per tal de poder fer el matching no poden haver cap parametre a "None"','Mala seleccio');
 else
     txt_info = findobj('Tag', 'text_for_information');
-    txt_info.String = 'Processant algorisme...'
+    txt_info.String = 'Processant algorisme...';
     txt_info.ForegroundColor = 'black';
+    
+    %Tornar a carregar imatges
+    im2 = imread(pathCapturedImage);
+    subplot(1,2,1), subimage(im2)
+    title('Imatge acabada de capturar')
+    
+    im1 = imread(pathDataBaseImage);
+    subplot(1,2,2), subimage(im1)
+    title('Imatge de la base de dades')
 
     %Getting and Preprocessing captured image
-    im2=imread(pathCapturedImage);
     [Ithin2,MinutaeMatrixComplex2] = ext_finger(im2,1);
 
 
@@ -67,10 +62,7 @@ else
     [minMat_templ,Ithin, BifCentr1, TermCentr1] = TemplateImageProcessing(pathDataBaseImage);
     n_min_templ=size(minMat_templ(:,1));
     n_min_curr=size(minMat_curr(:,1));
-    tic
     c=matching(minMat_templ,minMat_curr,0.8*min(n_min_templ,n_min_curr));
-    toc
-    c
 
     subplot(1,2,1), subimage(Ithin2)
     title('Imatge capturada processada')

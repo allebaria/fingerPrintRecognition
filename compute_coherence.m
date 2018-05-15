@@ -1,15 +1,4 @@
-%------------------------------------------------------------------------
-%compute_coherence
-%Computes the coherence image. 
-%Usage:
-%[cimg] = compute_coherence(oimg)
-%oimg - orientation image
-%cimg - coherence image(0-low coherence,1-high coherence)
-%Contact:
-%   ssc5@eng.buffalo.edu
-%   www.eng.buffalo.edu/~ssc5
-%Reference:
-%A. Ravishankar Rao,"A taxonomy of texture description", Springer Verlag
+
 %------------------------------------------------------------------------
 function [cimg] = compute_coherence(oimg)
     [h,w]   =   size(oimg);
@@ -26,6 +15,6 @@ function [cimg] = compute_coherence(oimg)
             th  = oimg(i,j);
             blk = oimg(i-N:i+N,j-N:j+N);
             cimg(i-N,j-N)=sum(sum(abs(cos(blk-th))))/((2*N+1).^2);
-        end;
-    end;
+        end
+    end
 %end function compute_coherence

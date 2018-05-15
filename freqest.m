@@ -1,42 +1,4 @@
-% FREQEST - Estimate fingerprint ridge frequency within image block
-%
-% Function to estimate the fingerprint ridge frequency within a small block
-% of a fingerprint image.  This function is used by RIDGEFREQ
-%
-% Usage:
-%  freqim =  freqest(im, orientim, windsze, minWaveLength, maxWaveLength)
-%
-% Arguments:
-%         im       - Image block to be processed.
-%         orientim - Ridge orientation image of image block.
-%         windsze  - Window length used to identify peaks. This should be
-%                    an odd integer, say 3 or 5.
-%         minWaveLength,  maxWaveLength - Minimum and maximum ridge
-%                     wavelengths, in pixels, considered acceptable.
-% 
-% Returns:
-%         freqim    - An image block the same size as im with all values
-%                     set to the estimated ridge spatial frequency.  If a
-%                     ridge frequency cannot be found, or cannot be found
-%                     within the limits set by min and max Wavlength
-%                     freqim is set to zeros.
-%
-% Suggested parameters for a 500dpi fingerprint image
-%   freqim = freqest(im,orientim, 5, 5, 15);
-%
-% See also:  RIDGEFREQ, RIDGEORIENT, RIDGESEGMENT
-%
-% Note I am not entirely satisfied with the output of this function.
-
-% Peter Kovesi 
-% School of Computer Science & Software Engineering
-% The University of Western Australia
-% pk at csse uwa edu au
-% http://www.csse.uwa.edu.au/~pk
-%
-% January 2005
-
-    
+  
 function freqim =  freqest(im, orientim, windsze, minWaveLength, maxWaveLength)
     
     debug = 0;
@@ -89,9 +51,6 @@ function freqim =  freqest(im, orientim, windsze, minWaveLength, maxWaveLength)
 
     
     if debug
-	%show(im,1)
-	%show(rotim,2);
-	%figure(3),    plot(proj), hold on
 	meanproj = mean(proj)
 	if length(maxind) < 2
 	    fprintf('No peaks found\n');
