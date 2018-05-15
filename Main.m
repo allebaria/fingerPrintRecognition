@@ -13,9 +13,6 @@
 % [Bifurcations,Terminations,BifCentr,TermCentr]=getMinutaes(Ithin);
 % minMat_templ=[BifCentr;TermCentr];
 
-%TODO: Posar text de color verd quan match correcte i vermell quan no
-%TODO: Pintar minucies a la imatge processada
-%TODO: Vigilar amb el none
 f = figure('Name', 'Programa de matching per empremtes dactilars','Visible','off', 'NumberTitle', 'off');
 popup = uicontrol('Style', 'popup',...
            'String', {'None','Albert_1','Albert_2','Albert_3','Albert_4', 'Amadeu_1','Amadeu_2','Amadeu_3','Amadeu_4','Anna_1','Anna_2','Anna_3', 'Elena_1','Elena_2','Elena_3','Elena_4','Elena_5', 'Guille_1','Guille_2','Guille_3','Guille_4','Guille_5','Guille_6', 'Marta_1', 'Marta_2', 'Teresa_1', 'Teresa_2','Teresa_3','Teresa_4', 'Xavier_1', 'Xavier_2' 'Xavier_3' 'Xavier_4' 'Xavier_5'},...
@@ -67,7 +64,7 @@ else
     minMat_curr=[BifCentr2;TermCentr2];
 
     %Matching
-    minMat_templ = TemplateImageProcessing(pathDataBaseImage);
+    [minMat_templ,Ithin, BifCentr1, TermCentr1] = TemplateImageProcessing(pathDataBaseImage);
     n_min_templ=size(minMat_templ(:,1));
     n_min_curr=size(minMat_curr(:,1));
     tic
@@ -76,7 +73,18 @@ else
     c
 
     subplot(1,2,1), subimage(Ithin2)
-    title('Imatge capturada processada amb minutes')
+    title('Imatge capturada processada')
+    hold on
+    plot(TermCentr2(:,1),TermCentr2(:,2),'ro')
+    plot(BifCentr2(:,1),BifCentr2(:,2),'go')
+    hold off
+    
+    subplot(1,2,2), subimage(Ithin)
+    title('Imatge base de dades processada')
+    hold on
+    plot(TermCentr1(:,1),TermCentr1(:,2),'ro')
+    plot(BifCentr1(:,1),BifCentr1(:,2),'go')
+    hold off
 
     if(c)
         txt_info.String = 'Matching Correcte!!!';

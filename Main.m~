@@ -29,56 +29,71 @@ popup2 = uicontrol('Style', 'popup',...
            'Tag','popup_database',...
            'UserData', struct('Image',''),...
            'Callback', @setList2);
-runButton = uicontrol('Style', 'pushbutton','String','Run',...
-           'Position', [230 360 100 50],...
+runButton = uicontrol('Style', 'pushbutton','String','Comparar les empremtes!',...
+           'Position', [200 360 150 50],...
            'Callback', @startMatching);
        
 txtInformation = uicontrol('Style','text',...
      'Position',[220 45 160 40],...
      'Tag','text_for_information',...
-     'String','Selecciona dues imatges i pitja Run');
+     'String','Selecciona dues imatges i pitja el botó per comparar les imatges');
        
 f.Visible = 'on';
 
 function startMatching(source, event)
 popup_1 = findobj('Tag','popup_captured');
 popup_2 = findobj('Tag','popup_database');
-txt_info = findobj('Tag', 'text_for_information');
 pathCapturedImage = sprintf('./DB1_B/%s.tif', popup_1.UserData.Image);
 pathDataBaseImage = sprintf('./DB1_B/%s.tif', popup_2.UserData.Image);
-txt_info.String = 'Processant algorisme...'
-%Getting and Preprocessing captured image
-im2=imread(pathCapturedImage);
-[Ithin2,MinutaeMatrixComplex2] = ext_finger(im2,1);
-
-
-%Translating second image to match with the original one
-center2=findCenter(MinutaeMatrixComplex2);
-Ithin2=imageTranslation(center2,Ithin2);
-
-
-%Get Minutiaes from second image
-[Bifurcations2,Terminations2,BifCentr2,TermCentr2]=getMinutaes(Ithin2);
-minMat_curr=[BifCentr2;TermCentr2];
-
-%Matching
-minMat_templ = TemplateImageProcessing(pathDataBaseImage);
-n_min_templ=size(minMat_templ(:,1));
-n_min_curr=size(minMat_curr(:,1));
-tic
-c=matching(minMat_templ,minMat_curr,0.8*min(n_min_templ,n_min_curr));
-toc
-c
-
-subplot(1,2,1), subimage(Ithin2)
-title('Imatge capturada processada amb minutes')
-
-if(c)
-    txt_info.String = 'Matching Correcte!!!';
+if(strcmp(popup_1.UserData.Image,'')|| strcmp(popup_2.UserData.Image,'') || strcmp(popup_1.UserData.Image,'None')|| strcmp(popup_2.UserData.Image,'None'))
+    f = msgbox('Per tal de poder fer el matching no poden haver cap paràmetre a "None"','Mala selecció');
 else
-    txt_info.String = 'Matching Incorrecte...'
+    txt_info = findobj('Tag', 'text_for_information');
+    txt_info.String = 'Processant algorisme...'
+    txt_info.ForegroundColor = 'black';
 
+    %Getting and Preprocessing captured image
+    im2=imread(pathCapturedImage);
+    [Ithin2,MinutaeMatrixComplex2] = ext_finger(im2,1);
+
+
+    %Translating second image to match with the original one
+    center2=findCenter(MinutaeMatrixComplex2);
+    Ithin2=imageTranslation(center2,Ithin2);
+
+
+    %Get Minutiaes from second image
+    [Bifurcations2,Terminations2,BifCentr2,TermCentr2]=getMinutaes(Ithin2);
+    minMat_curr=[BifCentr2;TermCentr2];
+
+    %Matching
+    [minMat_templ,Ithin] = TemplateImageProcessing(pathDataBaseImage);
+    n_min_templ=size(minMat_templ(:,1));
+    n_min_curr=size(minMat_curr(:,1));
+    tic
+    c=matching(minMat_templ,minMat_curr,0.8*min(n_min_templ,n_min_curr));
+    toc
+    c
+
+    subplot(1,2,1), subimage(Ithin2)
+    title('Imatge capturada processada')
+    hold on
+    plot(TermCentr2(:,1),TermCentr2(:,2),'ro')
+    plot(BifCentr2(:,1),BifCentr2(:,2),'go')
+    subplot(1,2,2), subimage(Ithin)
+    title('Imatge base de dades processada')
+
+    if(c)
+        txt_info.String = 'Matching Correcte!!!';
+        txt_info.ForegroundColor = 'green';
+    else
+        txt_info.String = 'Matching Incorrecte...';
+        txt_info.ForegroundColor = 'red';
+
+
+    end
 end
+
 
 end
 

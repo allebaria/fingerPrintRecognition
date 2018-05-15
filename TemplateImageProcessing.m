@@ -1,4 +1,4 @@
-function [minMat_templ] = TemplateImageProcessing(imagePath)
+function [minMat_templ, Ithin, BifCentr, TermCentr] = TemplateImageProcessing(imagePath)
 %Get image
 im=imread(imagePath);
 
