@@ -7,7 +7,7 @@ popup = uicontrol('Style', 'popup',...
            'UserData',struct('Image',''),...
            'Callback', @setList);
 popup2 = uicontrol('Style', 'popup',...
-           'String', {'None','Albert_1','Albert_2','Amadeu_1','Amadeu_2','Elena_1','Elena_2','Elena_3', 'Guille_1','Guille_2','Guille_3','Guille_4','Teresa_1', 'Teresa_2','Teresa_4'},...
+           'String', {'None','Albert_1','Albert_2','Albert_3','Albert_4', 'Amadeu_1','Amadeu_2','Amadeu_3','Amadeu_4','Anna_1','Anna_2','Anna_3', 'Elena_1','Elena_2','Elena_3','Elena_4','Elena_5', 'Guille_1','Guille_2','Guille_3','Guille_4','Guille_5','Guille_6', 'Marta_1', 'Marta_2', 'Teresa_1', 'Teresa_2','Teresa_3','Teresa_4', 'Xavier_1', 'Xavier_2' 'Xavier_3' 'Xavier_4' 'Xavier_5'},...
            'Position', [440 340 100 50],...
            'Tag','popup_database',...
            'UserData', struct('Image',''),...
@@ -35,17 +35,9 @@ else
     txt_info = findobj('Tag', 'text_for_information');
     txt_info.String = 'Processant algorisme...';
     txt_info.ForegroundColor = 'black';
-    
-    %Tornar a carregar imatges
-    im2 = imread(pathCapturedImage);
-    subplot(1,2,1), subimage(im2)
-    title('Imatge acabada de capturar')
-    
-    im1 = imread(pathDataBaseImage);
-    subplot(1,2,2), subimage(im1)
-    title('Imatge de la base de dades')
 
     %Getting and Preprocessing captured image
+    im2=imread(pathCapturedImage);
     [Ithin2,MinutaeMatrixComplex2] = ext_finger(im2,1);
 
 
